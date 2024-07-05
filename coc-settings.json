@@ -1,11 +1,11 @@
 {
-	"colors.enable": true,
-	"codeLens.enable": true,
-	"codeLens.position": "eol",
-	"sumneko-lua.enableNvimLuaDev": true,
-	"eslint.format.enable": true,
-	"stylua.styluaPath": "/usr/bin/stylua",
-	"diagnostic.checkCurrentLine": true,
-	"typescript.preferences.importModuleSpecifier": "relative",
-	"javascript.preferences.importModuleSpecifier": "relative"
+  "colors.enable": true,
+  "codeLens.enable": true,
+  "codeLens.position": "eol",
+  "sumneko-lua.enableNvimLuaDev": true,
+  "eslint.format.enable": true,
+  "stylua.styluaPath": "/usr/bin/stylua",
+  "diagnostic.checkCurrentLine": true,
+  "typescript.preferences.importModuleSpecifier": "relative",
+  "javascript.preferences.importModuleSpecifier": "relative"
 }

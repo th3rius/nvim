@@ -10,76 +10,90 @@ vim.g.maplocalleader = " "
 -- [[ Install `lazy.nvim` plugin manager ]]
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
-	vim.fn.system({
-		"git",
-		"clone",
-		"--filter=blob:none",
-		"git@github.com:folke/lazy.nvim.git",
-		"--branch=stable",
-		lazypath,
-	})
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "git@github.com:folke/lazy.nvim.git",
+    "--branch=stable",
+    lazypath,
+  })
 end
 vim.opt.rtp:prepend(lazypath)
 
 -- [[ Configure plugins ]]
 require("lazy").setup({
-	-- git
-	"tpope/vim-fugitive",
-	"tpope/vim-rhubarb",
+  -- git
+  "tpope/vim-fugitive",
+  "tpope/vim-rhubarb",
 
-	-- Detect tabstop and shiftwidth automatically
-	"tpope/vim-sleuth",
+  -- Detect tabstop and shiftwidth automatically
+  "tpope/vim-sleuth",
 
-	-- Detach `updatetime` from the frequency of `CursorHold`
-	"antoinemadec/FixCursorHold.nvim",
+  -- Detach `updatetime` from the frequency of `CursorHold`
+  "antoinemadec/FixCursorHold.nvim",
 
-	-- editorconfig
-	"editorconfig/editorconfig-vim",
+  -- editorconfig
+  "editorconfig/editorconfig-vim",
 
-	-- handy bracket mappings
-	"tpope/vim-unimpaired",
+  -- handy bracket mappings
+  "tpope/vim-unimpaired",
 
-	-- Delete/change/add parentheses/quotes/XML-tags/much more
-	"tpope/vim-surround",
+  -- Delete/change/add parentheses/quotes/XML-tags/much more
+  "tpope/vim-surround",
 
-	-- Delete buffers and close files without closing
-	-- windows or messing up the layout
-	"th3rius/bufdelete.nvim",
+  -- Delete buffers and close files without closing
+  -- windows or messing up the layout
+  "th3rius/bufdelete.nvim",
 
-	-- Auto pairs for brackets, parens, quotes
-	{ "windwp/nvim-autopairs", config = true },
+  -- Auto pairs for brackets, parens, quotes
+  { "windwp/nvim-autopairs", config = true },
 
-	-- sticky buffers
-	{ "stevearc/stickybuf.nvim", config = true },
+  -- sticky buffers
+  { "stevearc/stickybuf.nvim", config = true },
 
-	-- Tab-scoped buffers
-	{ "tiagovla/scope.nvim", config = true },
+  -- Tab-scoped buffers
+  { "tiagovla/scope.nvim", config = true },
 
-	-- lua `fork` of vim-web-devicons for neovim
-	{
-		"nvim-tree/nvim-web-devicons",
-		opts = {
-			color_icons = false,
-		},
-	},
+  -- Adds git related signs to the gutter, as well as utilities for managing changes
+  {
+    "lewis6991/gitsigns.nvim",
+    opts = {
+      signs = {
+        add = { text = "+" },
+        change = { text = "~" },
+        delete = { text = "_" },
+        topdelete = { text = "‾" },
+        changedelete = { text = "~" },
+      },
+    },
+  },
 
-	{
-		-- tokyonight theme
-		"folke/tokyonight.nvim",
-		priority = 1000,
-		config = function()
-			vim.cmd.colorscheme("tokyonight-moon")
-		end,
-	},
+  -- lua `fork` of vim-web-devicons for neovim
+  {
+    "nvim-tree/nvim-web-devicons",
+    opts = {
+      color_icons = false,
+    },
+  },
 
-	{ import = "plugins" },
+  {
+    -- tokyonight theme
+    "navarasu/onedark.nvim",
+    priority = 1000,
+    config = function()
+      vim.cmd.colorscheme("onedark")
+    end,
+  },
+
+  { import = "plugins" },
 }, {
-	defaults = {
-		git = {
-			timeout = 1200,
-			url_format = "git@github.com:%s.git",
-		},
-	},
+  defaults = {
+    git = {
+      timeout = 1200,
+      url_format = "git@github.com:%s.git",
+    },
+  },
 })
 
 -- [[ Setting options ]]
@@ -109,8 +123,8 @@ vim.o.completeopt = "menuone,noselect"
 -- Enables 24-bit RGB color
 vim.o.termguicolors = true
 
--- Indents word-wrapped lines as much as the 'parent' line
-vim.o.breakindent = true
+-- Disable line wrapping
+vim.o.wrap = false
 
 -- Highlight column cursor
 vim.o.cursorcolumn = true
@@ -128,7 +142,7 @@ vim.o.showmode = false
 local undo_dir = vim.fn.expand("~/.cache/undodir")
 
 if not vim.fn.isdirectory(undo_dir) then
-	vim.fn.mkdir(undo_dir, "p", 0700)
+  vim.fn.mkdir(undo_dir, "p", 0700)
 end
 
 vim.o.undodir = undo_dir
@@ -155,12 +169,12 @@ bind.n("tl", ":tabn<CR>", { silent = true })
 
 -- [[ Highlight on yank ]]
 local highlight_group =
-	vim.api.nvim_create_augroup("YankHighlight", { clear = true })
+  vim.api.nvim_create_augroup("YankHighlight", { clear = true })
 
 vim.api.nvim_create_autocmd("TextYankPost", {
-	callback = function()
-		vim.highlight.on_yank()
-	end,
-	group = highlight_group,
-	pattern = "*",
+  callback = function()
+    vim.highlight.on_yank()
+  end,
+  group = highlight_group,
+  pattern = "*",
 })
