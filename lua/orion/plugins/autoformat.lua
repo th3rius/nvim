@@ -1,6 +1,9 @@
-return { -- Autoformat
+-- Autoformat
+return {
   "stevearc/conform.nvim",
-  lazy = false,
+  lazy = true,
+  event = { "BufWritePre" },
+  cmd = { "ConformInfo" },
   keys = {
     {
       "<leader>f",
@@ -17,6 +20,7 @@ return { -- Autoformat
       javascriptreact = { "eslint_d", "prettierd" },
       typescript = { "eslint_d", "prettierd" },
       typescriptreact = { "eslint_d", "prettierd" },
+      ["*"] = { "trim_newlines", "trim_whitespace", "prettierd" },
     },
   },
 }

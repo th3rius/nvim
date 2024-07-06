@@ -59,23 +59,18 @@ require("lazy").setup({
   { "lewis6991/gitsigns.nvim", config = true },
 
   -- lua `fork` of vim-web-devicons for neovim
-  {
-    "nvim-tree/nvim-web-devicons",
-    opts = {
-      color_icons = false,
-    },
-  },
+  { "nvim-tree/nvim-web-devicons", config = true },
 
   {
-    -- tokyonight theme
-    "folke/tokyonight.nvim",
+    -- slugbyte theme
+    "navarasu/onedark.nvim",
     priority = 1000,
     config = function()
-      vim.cmd.colorscheme("tokyonight")
+      vim.cmd.colorscheme("onedark")
     end,
   },
 
-  { import = "plugins" },
+  { import = "orion/plugins" },
 }, {
   defaults = {
     git = {
@@ -124,6 +119,9 @@ vim.o.scrolloff = 2
 -- lualine will show the mode for us
 vim.o.showmode = false
 
+-- Disable line wrapping. Makes it easier to work on smaller windows.
+vim.o.wrap = false
+
 -- [[ Persistent undo ]]
 local undo_dir = vim.fn.expand("~/.cache/undodir")
 
@@ -154,13 +152,10 @@ bind.n("th", ":tabp<CR>", { silent = true })
 bind.n("tl", ":tabn<CR>", { silent = true })
 
 -- [[ Highlight on yank ]]
-local highlight_group =
-  vim.api.nvim_create_augroup("YankHighlight", { clear = true })
-
 vim.api.nvim_create_autocmd("TextYankPost", {
   callback = function()
     vim.highlight.on_yank()
   end,
-  group = highlight_group,
+  group = vim.api.nvim_create_augroup("orion-highlight-yank", { clear = true }),
   pattern = "*",
 })
