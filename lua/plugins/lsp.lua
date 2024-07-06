@@ -31,15 +31,6 @@ return {
     --    function will be executed to configure the current buffer
     vim.api.nvim_create_autocmd("LspAttach", {
       callback = function(event)
-        local map = function(keys, func, desc)
-          vim.keymap.set(
-            "n",
-            keys,
-            func,
-            { buffer = event.buf, desc = "LSP: " .. desc }
-          )
-        end
-
         -- Jump to the definition of the word under your cursor.
         bind.n("gd", telescope_builtin.lsp_definitions, "Goto definition")
 
@@ -82,7 +73,7 @@ return {
         bind.n("<leader>a", vim.lsp.buf.code_action, "Code action")
 
         -- Opens a popup that displays documentation about the word under your cursor
-        map("K", vim.lsp.buf.hover, "Hover Documentation")
+        bind.n("K", vim.lsp.buf.hover, "Hover documentation")
 
         -- Jump to the declaration of the word under your cursor.
         bind.n("gD", vim.lsp.buf.declaration, "Goto declaration")
@@ -114,17 +105,17 @@ return {
           and client.server_capabilities.inlayHintProvider
           and vim.lsp.inlay_hint
         then
-          map("<leader>th", function()
+          bind.n("<leader>th>", function()
             vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
-          end, "[T]oggle Inlay [H]ints")
+          end, "Toggle inlay jints")
         end
       end,
     })
 
     -- LSP servers and clients are able to communicate to each other what features they support.
-    --  By default, Neovim doesn't support everything that is in the LSP specification.
-    --  When you add nvim-cmp, luasnip, etc. Neovim now has *more* capabilities.
-    --  So, we create new capabilities with nvim cmp, and then broadcast that to the servers.
+    -- By default, Neovim doesn't support everything that is in the LSP specification.
+    -- When you add nvim-cmp, luasnip, etc. Neovim now has *more* capabilities.
+    -- So, we create new capabilities with nvim cmp, and then broadcast that to the servers.
     local capabilities = vim.lsp.protocol.make_client_capabilities()
     capabilities = vim.tbl_deep_extend(
       "force",
@@ -134,15 +125,7 @@ return {
 
     -- Enable the following language servers
     local servers = {
-      lua_ls = {
-        settings = {
-          Lua = {
-            completion = {
-              callSnippet = "Replace",
-            },
-          },
-        },
-      },
+      lua_ls = {},
     }
 
     -- Ensure the servers and tools above are installed
