@@ -16,6 +16,13 @@ return {
     -- `neodev` configures Lua LSP for your Neovim config, runtime and plugins
     -- used for completion, annotations and signatures of Neovim apis
     { "folke/neodev.nvim", config = true },
+
+    -- Pure lua replacement for `typescript-language-server`
+    {
+      "pmizio/typescript-tools.nvim",
+      dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+      config = true,
+    },
   },
   config = function()
     --  This function gets run when an LSP attaches to a particular buffer.
@@ -127,8 +134,6 @@ return {
 
     -- Enable the following language servers
     local servers = {
-      tsserver = {},
-
       lua_ls = {
         settings = {
           Lua = {

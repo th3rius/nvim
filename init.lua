@@ -56,18 +56,7 @@ require("lazy").setup({
   { "tiagovla/scope.nvim", config = true },
 
   -- Adds git related signs to the gutter, as well as utilities for managing changes
-  {
-    "lewis6991/gitsigns.nvim",
-    opts = {
-      signs = {
-        add = { text = "+" },
-        change = { text = "~" },
-        delete = { text = "_" },
-        topdelete = { text = "‾" },
-        changedelete = { text = "~" },
-      },
-    },
-  },
+  { "lewis6991/gitsigns.nvim", config = true },
 
   -- lua `fork` of vim-web-devicons for neovim
   {
@@ -78,11 +67,11 @@ require("lazy").setup({
   },
 
   {
-    -- tokyonight theme
-    "navarasu/onedark.nvim",
+    -- everforest theme
+    "sainnhe/everforest",
     priority = 1000,
     config = function()
-      vim.cmd.colorscheme("onedark")
+      vim.cmd.colorscheme("everforest")
     end,
   },
 
@@ -122,9 +111,6 @@ vim.o.completeopt = "menuone,noselect"
 
 -- Enables 24-bit RGB color
 vim.o.termguicolors = true
-
--- Disable line wrapping
-vim.o.wrap = false
 
 -- Highlight column cursor
 vim.o.cursorcolumn = true
