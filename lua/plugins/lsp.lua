@@ -25,10 +25,6 @@ return {
     },
   },
   config = function()
-    --  This function gets run when an LSP attaches to a particular buffer.
-    --    That is to say, every time a new file is opened that is associated with
-    --    an lsp (for example, opening `main.rs` is associated with `rust_analyzer`) this
-    --    function will be executed to configure the current buffer
     vim.api.nvim_create_autocmd("LspAttach", {
       callback = function(event)
         -- Jump to the definition of the word under your cursor.
@@ -78,6 +74,7 @@ return {
         -- Jump to the declaration of the word under your cursor.
         bind.n("gD", vim.lsp.buf.declaration, "Goto declaration")
 
+        -- Highlight symbol on cursor hold
         local client = vim.lsp.get_client_by_id(event.data.client_id)
         if client and client.server_capabilities.documentHighlightProvider then
           vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
@@ -107,7 +104,7 @@ return {
         then
           bind.n("<leader>th>", function()
             vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
-          end, "Toggle inlay jints")
+          end, "Toggle inlay hints")
         end
       end,
     })
