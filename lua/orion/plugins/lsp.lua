@@ -138,6 +138,8 @@ return {
       html = {},
       cssls = {},
       cssmodules_ls = {},
+
+      jsonls = {},
     }
 
     -- Ensure the servers and tools above are installed
