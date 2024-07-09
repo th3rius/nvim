@@ -1,9 +1,11 @@
+local bind = require("keybinder")
+
 return {
   "echasnovski/mini.files",
   version = false,
   config = function()
-    local bind = require("keybinder")
     local mini_files = require("mini.files")
+    local cmp = require("cmp")
 
     mini_files.setup({
       options = {
@@ -45,9 +47,9 @@ return {
 
           -- enables synchronizing with :w. this allows
           -- reusing bindings that call :w.
-          vim.api.nvim_buf_set_option(buf, "buftype", "acwrite")
-          -- I don't think mini.files offers the current window
-          -- directory through their api or anything elegant we can
+          vim.api.nvim_set_option_value("buftype", "acwrite", { buf = buf })
+          -- mini.files doesn't offers the current window
+          -- directory through their API or anything elegant we can
           -- use as the buffer name here. as a hack we just use a
           -- ranodm number.
           vim.api.nvim_buf_set_name(ev.data.buf_id, tostring(math.random()))
@@ -56,12 +58,8 @@ return {
             callback = mini_files.synchronize,
           })
 
-          -- We shouldn't use CoC completions here
-          vim.b.coc_enabled = 0
-          -- FIXME: since we have disabled CoC for the buffer,
-          -- attempting to use complletions will cause an error.
-          -- There's probably a more elegant solution for this.
-          vim.api.nvim_buf_set_keymap(buf, "i", "<C-space>", "<Nop>", {})
+          -- Disable completions here.
+          cmp.setup.buffer({ enabled = false })
         end)
       end,
     })
@@ -69,7 +67,10 @@ return {
     local function toggle_mini_files()
       if not MiniFiles.close() then
         local buf = vim.api.nvim_buf_get_name(vim.api.nvim_get_current_buf())
-        MiniFiles.open(buf)
+        -- Check if the buffer is something that exists on disk (e.g. not a terminal).
+        -- If it is not, open the current working directory.
+        local openable = vim.fn.getftype(buf) ~= ""
+        MiniFiles.open(openable and buf or nil)
       end
     end
 

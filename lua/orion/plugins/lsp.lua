@@ -1,5 +1,4 @@
 local bind = require("keybinder")
-local telescope_builtin = require("telescope.builtin")
 
 -- LSP Configuration & Plugins
 return {
@@ -25,6 +24,8 @@ return {
     },
   },
   config = function()
+    local telescope_builtin = require("telescope.builtin")
+
     vim.api.nvim_create_autocmd("LspAttach", {
       group = vim.api.nvim_create_augroup("orion-lsp-attach", { clear = true }),
       callback = function(event)
