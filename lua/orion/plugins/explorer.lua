@@ -11,12 +11,14 @@ return {
       options = {
         permanent_delete = false,
       },
+
       mappings = {
         go_in_plus = "",
         go_out_plus = "",
         go_in = "L",
         go_out = "H",
       },
+
       content = {
         filter = function(entry)
           return entry.name ~= ".git" and entry.name ~= "node_modules"
@@ -48,6 +50,7 @@ return {
           -- enables synchronizing with :w. this allows
           -- reusing bindings that call :w.
           vim.api.nvim_set_option_value("buftype", "acwrite", { buf = buf })
+
           -- mini.files doesn't offers the current window
           -- directory through their API or anything elegant we can
           -- use as the buffer name here. as a hack we just use a
