@@ -115,7 +115,7 @@ return {
           and vim.lsp.inlay_hint
         then
           bind.n("<leader>th>", function()
-            vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+            vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({}))
           end, "Toggle inlay hints")
         end
       end,
