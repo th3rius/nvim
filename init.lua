@@ -62,7 +62,7 @@ require("lazy").setup({
   { "nvim-tree/nvim-web-devicons", config = true },
 
   {
-    -- slugbyte theme
+    -- onedark theme
     "navarasu/onedark.nvim",
     priority = 1000,
     config = function()

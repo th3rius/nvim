@@ -9,6 +9,9 @@ return {
     "williamboman/mason-lspconfig.nvim",
     "WhoIsSethDaniel/mason-tool-installer.nvim",
 
+    -- SchemaStore catalog for use with jsonls
+    "b0o/schemastore.nvim",
+
     -- Useful status updates for LSP.
     { "j-hui/fidget.nvim", config = true },
 
@@ -25,6 +28,7 @@ return {
   },
   config = function()
     local telescope_builtin = require("telescope.builtin")
+    local schemastore = require("schemastore")
 
     vim.api.nvim_create_autocmd("LspAttach", {
       group = vim.api.nvim_create_augroup("orion-lsp-attach", { clear = true }),
@@ -140,7 +144,27 @@ return {
       cssls = {},
       cssmodules_ls = {},
 
-      jsonls = {},
+      jsonls = {
+        settings = {
+          json = {
+            schemas = schemastore.json.schemas(),
+            validate = { enable = true },
+          },
+        },
+      },
+      yamlls = {
+        settings = {
+          yaml = {
+            schemaStore = {
+              -- The built-in schemaStore must be disable for use with `b0o/schemastore`
+              enable = false,
+              -- Avoid TypeError: Cannot read properties of undefined (reading 'length')
+              url = "",
+            },
+            schemas = schemastore.yaml.schemas(),
+          },
+        },
+      },
     }
 
     -- Ensure the servers and tools above are installed
