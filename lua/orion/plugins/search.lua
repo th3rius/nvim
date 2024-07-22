@@ -40,7 +40,7 @@ return {
         live_grep = {
           file_ignore_patterns = {
             "%.lock$",
-            "^package%-lock%.json$",
+            "%-lock%.json$",
           },
         },
         buffers = {

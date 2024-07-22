@@ -140,6 +140,8 @@ return {
     local servers = {
       lua_ls = {},
 
+      rust_analyzer = {},
+
       html = {},
       cssls = {},
       cssmodules_ls = {},

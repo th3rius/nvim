@@ -62,11 +62,18 @@ require("lazy").setup({
   { "nvim-tree/nvim-web-devicons", config = true },
 
   {
-    -- onedark theme
-    "navarasu/onedark.nvim",
+    "mbbill/undotree",
+    config = function()
+      bind.n("<F5>", vim.cmd.UndotreeToggle, "Toggle undo-tree")
+    end,
+  },
+
+  {
+    -- tokyo theme
+    "folke/tokyonight.nvim",
     priority = 1000,
     config = function()
-      vim.cmd.colorscheme("onedark")
+      vim.cmd.colorscheme("tokyonight")
     end,
   },
 
