@@ -8,6 +8,12 @@ return {
         section_separators = "",
       },
       sections = {
+        lualine_c = {
+          function()
+            local bar = require("lspsaga.symbol.winbar").get_bar()
+            return bar ~= nil and bar or ""
+          end,
+        },
         lualine_x = {
           { "fileformat", padding = { right = 2, left = 1 } },
         },
