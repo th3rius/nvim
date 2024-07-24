@@ -15,6 +15,7 @@ return {
           end,
         },
         lualine_x = {
+          "encoding",
           { "fileformat", padding = { right = 2, left = 1 } },
         },
       },

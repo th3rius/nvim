@@ -69,11 +69,11 @@ require("lazy").setup({
   },
 
   {
-    -- tokyo theme
-    "folke/tokyonight.nvim",
+    -- everforest theme
+    "sainnhe/everforest",
     priority = 1000,
     config = function()
-      vim.cmd.colorscheme("tokyonight")
+      vim.cmd.colorscheme("everforest")
     end,
   },
 
