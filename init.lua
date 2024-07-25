@@ -62,10 +62,22 @@ require("lazy").setup({
   { "nvim-tree/nvim-web-devicons", config = true },
 
   {
+    -- undotree
     "mbbill/undotree",
     config = function()
       bind.n("<F5>", vim.cmd.UndotreeToggle, "Toggle undo-tree")
     end,
+  },
+
+  {
+    -- Task manager
+    "stevearc/overseer.nvim",
+    config = function()
+      require("overseer").setup({
+        strategy = "toggleterm",
+      })
+      bind.n("<leader>v", ":OverseerRun<CR>", { silent = true })
+    end
   },
 
   {
