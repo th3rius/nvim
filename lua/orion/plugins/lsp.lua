@@ -80,6 +80,9 @@ return {
           -- or a suggestion from your LSP for this to activate.
           bind.n("<leader>a", vim.lsp.buf.code_action, "Code action")
 
+          -- Display the diagnostic in the current line
+          bind.n("<leader>x", vim.diagnostic.open_float, "Show diagnostic")
+
           -- Opens a popup that displays documentation about the word under your cursor
           bind.n("K", vim.lsp.buf.hover, "Hover documentation")
 
