@@ -57,7 +57,7 @@ return {
           ["vim.lsp.util.stylize_markdown"] = true,
           ["cmp.entry.get_documentation"] = false,
         },
-        -- don't show singature when typing, this covers 
+        -- don't show singature when typing, this covers
         -- the entire screen on a simple console.log
         signature = { enabled = false },
       },
@@ -111,29 +111,31 @@ return {
     },
   },
 
-  -- Set lualine as statusline
-  "nvim-lualine/lualine.nvim",
-  dependencies = {
-    "nvimdev/lspsaga.nvim",
+  {
+    -- Set lualine as statusline
+    "nvim-lualine/lualine.nvim",
+    dependencies = {
+      "nvimdev/lspsaga.nvim",
+    },
+    config = function()
+      require("lualine").setup({
+        options = {
+          component_separators = "|",
+          section_separators = "",
+        },
+        sections = {
+          lualine_c = {
+            function()
+              local bar = require("lspsaga.symbol.winbar").get_bar()
+              return bar ~= nil and bar or ""
+            end,
+          },
+          lualine_x = {
+            "encoding",
+            { "fileformat", padding = { right = 2, left = 1 } },
+          },
+        },
+      })
+    end,
   },
-  config = function()
-    require("lualine").setup({
-      options = {
-        component_separators = "|",
-        section_separators = "",
-      },
-      sections = {
-        lualine_c = {
-          function()
-            local bar = require("lspsaga.symbol.winbar").get_bar()
-            return bar ~= nil and bar or ""
-          end,
-        },
-        lualine_x = {
-          "encoding",
-          { "fileformat", padding = { right = 2, left = 1 } },
-        },
-      },
-    })
-  end,
 }
