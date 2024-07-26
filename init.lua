@@ -77,7 +77,7 @@ require("lazy").setup({
         strategy = "toggleterm",
       })
       bind.n("<leader>v", ":OverseerRun<CR>", { silent = true })
-    end
+    end,
   },
 
   {
