@@ -19,6 +19,12 @@ return {
     },
   },
 
+  -- rename surround mappings from gs to gz to prevent conflict with leap
+  {
+    "echasnovski/mini.surround",
+    config = true,
+  },
+
   -- comments
   {
     "folke/ts-comments.nvim",

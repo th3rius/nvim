@@ -27,30 +27,11 @@ require("lazy").setup({
   "tpope/vim-fugitive",
   "tpope/vim-rhubarb",
 
-  -- Detect tabstop and shiftwidth automatically
-  "tpope/vim-sleuth",
-
   -- Detach `updatetime` from the frequency of `CursorHold`
   "antoinemadec/FixCursorHold.nvim",
 
   -- editorconfig
   "editorconfig/editorconfig-vim",
-
-  -- handy bracket mappings
-  "tpope/vim-unimpaired",
-
-  -- Delete/change/add parentheses/quotes/XML-tags/much more
-  "tpope/vim-surround",
-
-  -- Delete buffers and close files without closing
-  -- windows or messing up the layout
-  "th3rius/bufdelete.nvim",
-
-  -- sticky buffers
-  { "stevearc/stickybuf.nvim", config = true },
-
-  -- Tab-scoped buffers
-  { "tiagovla/scope.nvim", config = true },
 
   {
     -- undotree
@@ -84,7 +65,6 @@ require("lazy").setup({
 }, {
   defaults = {
     git = {
-      timeout = 1200,
       url_format = "git@github.com:%s.git",
     },
   },
