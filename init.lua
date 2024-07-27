@@ -46,20 +46,11 @@ require("lazy").setup({
   -- windows or messing up the layout
   "th3rius/bufdelete.nvim",
 
-  -- Auto pairs for brackets, parens, quotes
-  { "windwp/nvim-autopairs", config = true },
-
   -- sticky buffers
   { "stevearc/stickybuf.nvim", config = true },
 
   -- Tab-scoped buffers
   { "tiagovla/scope.nvim", config = true },
-
-  -- Adds git related signs to the gutter, as well as utilities for managing changes
-  { "lewis6991/gitsigns.nvim", config = true },
-
-  -- lua `fork` of vim-web-devicons for neovim
-  { "nvim-tree/nvim-web-devicons", config = true },
 
   {
     -- undotree

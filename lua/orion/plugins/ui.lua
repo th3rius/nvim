@@ -2,11 +2,12 @@ return {
   {
     -- bufferline
     "akinsho/bufferline.nvim",
+    event = "VeryLazy",
     config = function()
       local bufdelete = require("bufdelete").bufdelete
       require("bufferline").setup({
         options = {
-          diagnostics = "coc",
+          diagnostics = "nvim_lsp",
           numbers = function(opts)
             return string.format(
               "%s·%s",
@@ -23,9 +24,18 @@ return {
   {
     -- Add indentation guides even on blank lines
     "lukas-reineke/indent-blankline.nvim",
-    -- Enable `lukas-reineke/indent-blankline.nvim`
     main = "ibl",
-    opts = {},
+    opts = {
+      exclude = {
+        filetypes = {
+          "help",
+          "alpha",
+          "lazy",
+          "mason",
+          "toggleterm",
+        },
+      },
+    },
   },
 
   {
@@ -107,13 +117,14 @@ return {
       },
     },
     dependencies = {
-      "MunifTanjim/nui.nvim",
+      { "MunifTanjim/nui.nvim", lazy = true },
     },
   },
 
   {
     -- Set lualine as statusline
     "nvim-lualine/lualine.nvim",
+    event = "VeryLazy",
     dependencies = {
       "nvimdev/lspsaga.nvim",
     },
@@ -122,6 +133,10 @@ return {
         options = {
           component_separators = "|",
           section_separators = "",
+          globalstatus = vim.o.laststatus == 3,
+          disabled_filetypes = {
+            statusline = { "alpha" },
+          },
         },
         sections = {
           lualine_c = {
@@ -132,10 +147,40 @@ return {
           },
           lualine_x = {
             "encoding",
-            { "fileformat", padding = { right = 2, left = 1 } },
+            { "fileformat", padding = { right = 1, left = 1 } },
+          },
+          lualine_y = {
+            { "progress", separator = " ", padding = { left = 1, right = 0 } },
+            { "location", padding = { left = 0, right = 1 } },
+          },
+          lualine_z = {
+            function()
+              return " " .. os.date("%R")
+            end,
           },
         },
       })
+    end,
+  },
+
+  -- icons
+  {
+    "echasnovski/mini.icons",
+    lazy = true,
+    opts = {
+      file = {
+        [".keep"] = { glyph = "󰊢", hl = "MiniIconsGrey" },
+        ["devcontainer.json"] = { glyph = "", hl = "MiniIconsAzure" },
+      },
+      filetype = {
+        dotenv = { glyph = "", hl = "MiniIconsYellow" },
+      },
+    },
+    init = function()
+      package.preload["nvim-web-devicons"] = function()
+        require("mini.icons").mock_nvim_web_devicons()
+        return package.loaded["nvim-web-devicons"]
+      end
     end,
   },
 }
