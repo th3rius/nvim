@@ -1,6 +1,9 @@
 local bind = require("keybinder")
 
 return {
+  -- tabwidth
+  "tpope/vim-sleuth",
+
   -- auto pairs
   {
     "echasnovski/mini.pairs",
@@ -28,8 +31,9 @@ return {
   -- comments
   {
     "folke/ts-comments.nvim",
-    event = "VeryLazy",
     opts = {},
+    event = "VeryLazy",
+    enabled = vim.fn.has("nvim-0.10.0") == 1,
   },
 
   -- Adds git related signs to the gutter, as well as utilities for managing changes

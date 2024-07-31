@@ -146,8 +146,13 @@ return {
             end,
           },
           lualine_x = {
+            {
+              function()
+                return vim.api.nvim_call_function("SleuthIndicator", {})
+              end,
+            },
             "encoding",
-            { "fileformat", padding = { right = 1, left = 1 } },
+            { "fileformat", padding = { left = 1, right = 1 } },
           },
           lualine_y = {
             { "progress", separator = " ", padding = { left = 1, right = 0 } },
