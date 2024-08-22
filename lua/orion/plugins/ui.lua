@@ -129,6 +129,17 @@ return {
       "nvimdev/lspsaga.nvim",
     },
     config = function()
+      local noice = require("noice")
+
+      local function fg(name)
+        return function()
+          local hl = vim.api.nvim_get_hl_by_name(name, true)
+          return hl
+            and hl.foreground
+            and { fg = string.format("#%06x", hl.foreground) }
+        end
+      end
+
       require("lualine").setup({
         options = {
           component_separators = "|",
@@ -148,6 +159,24 @@ return {
           lualine_x = {
             {
               function()
+                return noice.api.status.command.get()
+              end,
+              cond = function()
+                return noice.api.status.command.has()
+              end,
+              color = fg("Statement"),
+            },
+            {
+              function()
+                return noice.api.status.mode.get()
+              end,
+              cond = function()
+                return noice.api.status.mode.has()
+              end,
+              color = fg("Constant"),
+            },
+            {
+              function()
                 return vim.api.nvim_call_function("SleuthIndicator", {})
               end,
             },
@@ -160,7 +189,7 @@ return {
           },
           lualine_z = {
             function()
-              return "  " .. os.date("%R")
+              return " " .. os.date("%R")
             end,
           },
         },

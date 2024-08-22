@@ -53,11 +53,11 @@ require("lazy").setup({
   },
 
   {
-    -- everforest theme
-    "sainnhe/everforest",
+    -- onedark theme
+    "navarasu/onedark.nvim",
     priority = 1000,
     config = function()
-      vim.cmd.colorscheme("everforest")
+      vim.cmd.colorscheme("onedark")
     end,
   },
 
